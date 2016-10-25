@@ -1,12 +1,13 @@
-﻿using Rc.Framework;
-using System;
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-using System.Windows.Forms;
-
-namespace KeyGen
+﻿namespace KeyGen
 {
+    using RC.Framework;
+    using System;
+    using System.IO;
+    using System.Security.Cryptography;
+    using System.Text;
+    using System.Windows.Forms;
+
+
     public class Program
     {
         [STAThread]
