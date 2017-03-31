@@ -8,7 +8,7 @@
 
     public enum SuperChangeLicenseType
     {
-        Bisnes = 0,
+        Business = 0,
         ProInv = 1,
         Inv = 2
     }
@@ -40,7 +40,7 @@
 
             switch (TypeLic)
             {
-                case SuperChangeLicenseType.Bisnes:
+                case SuperChangeLicenseType.Business:
                     header = "6k";
                     header2 = "DE7f22";
                     rbgIV = coding.GetBytes("b34BWthpykRn8Fb3");

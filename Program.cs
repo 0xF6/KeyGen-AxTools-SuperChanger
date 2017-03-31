@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using KeyGenAxTools;
+using Rc.Framework.Screens;
 using RC.Framework;
 using RCL = Rc.Framework.Screens.RCL;
 using Screen = Rc.Framework.Screens.Screen;
@@ -12,28 +13,19 @@ namespace KeyGen
     using System.Security.Cryptography;
     using System.Text;
 
+    public enum TypeProduct
+    {
+        AxTools,
+        SuperChanger
+    }
+
     public class Program
     {
         [STAThread]
         static void Main(string[] args) { new Program().tMain(args); }
         public void tMain(string[] args)
         {
-            string licse =
-                $"Yuuki{new string('~', 50 - ("Yuuki").Length)}Wesp{new string(' ', 23 - "Wesp".Length)}{2020}{20}{12}{12}000";
-            string value = "6k";
-            string value2 = "6p";
-            string value3 = "tt";
-            var ls = LicenseDecryptor.EncryptNew(SuperChangeLicenseType.Bisnes, 
-                new ProfileLicense() {EDate = DateTime.Now.AddYears(55), ID = "1", LName = "Yuuki Wesp", SCount = 3333});
-            // text.Length > 100 && (text.StartsWith(value) || text.StartsWith(value2) || text.StartsWith(value3))
-            // tt || 6k || 6p
-
-            string lic = $"tt{new string('0', 100)}";
-
-            string a = u000Eu2006u2008.u00023("d/59m2LflM3hLZkNi8N2LNvkqGcGLxjkNdLwAgpAD7aO6RnYf6Y1XGIM0Gdx5HT5V+me0vWec+y/34uE9ZRePw==");
-
-
-            Screen.Title = "KeyGen - AxTools 10";
+            Screen.Title = "KeyGen";
             //# +-------------------------+-+
             //# | Версии продуктов - VS10  \|\
             //# +---------------------------+-+-+
@@ -44,68 +36,56 @@ namespace KeyGen
             //# | xComment                  | 2 |
             //# +---------------------------+---+
             //@ vs10xcodemapexts, vs10xeditorviewe, vs10xcommentsext
-            Screen.WriteLine($"{RCL.Wrap("+-------------------------+-++", Color.Bisque)}");
-            Screen.WriteLine($"| Версия - AxTools10{new string(' ', 7)}\\|\\");
-            Screen.WriteLine($"+---------------------------+-+-+");
-            Screen.WriteLine($"| xCode Map{new string(' ', 17)}| 0 |");
-            Screen.WriteLine($"+---------------------------+---+");
-            Screen.WriteLine($"| xEditor Viem{new string(' ', 14)}| 1 |");
-            Screen.WriteLine($"+---------------------------+---+");
-            Screen.WriteLine($"| xComment{new string(' ', 18)}| 2 |");
-            Screen.WriteLine($"{RCL.Wrap("+-------------------------+-++", Color.Bisque)}");
 
-
-            Screen.WriteLine($"{RCL.Wrap("+-------------------------+---+", Color.Bisque)}");
 
             StringBuilder builder = new StringBuilder();
 
+            builder.AppendLine("+-------------------------++");
+            builder.AppendLine("| Версия - AxTools10      | \\");
             builder.AppendLine("+-------------------------+---+");
-            builder.AppendLine("| Версия - AxTools10      |---|");
+            builder.AppendLine("|  xCode Map              | 0 |");
             builder.AppendLine("+-------------------------+---+");
-            builder.AppendLine("|-------------------------| 0 |");
-            builder.AppendLine("|-------------------------| 1 |");
-            builder.AppendLine("|-------------------------| 2 |");
+            builder.AppendLine("|  xEditor Viem           | 1 |");
             builder.AppendLine("+-------------------------+---+");
-            builder.AppendLine("| Версия - SuperChanger   +---+");
+            builder.AppendLine("|  xComment               | 2 |");
             builder.AppendLine("+-------------------------+---+");
-            builder.AppendLine("|-------------------------| 3 |");
-            builder.AppendLine("|-------------------------| 4 |");
-            builder.AppendLine("|-------------------------| 5 |");
+            builder.AppendLine("| Версия - SuperChanger   |   |");
+            builder.AppendLine("+-------------------------+---+");
+            builder.AppendLine("|  Business               | 3 |");
+            builder.AppendLine("+-------------------------+---+");
+            builder.AppendLine("|  Individual Pro         | 4 |");
+            builder.AppendLine("+-------------------------+---+");
+            builder.AppendLine("|  Individual             | 5 |");
             builder.AppendLine("+-------------------------+---+");
 
 
             string tr = builder.ToString();
 
             tr = tr
-                .Replace("0", RCL.Wrap("0", Color.Red))
-                .Replace("1", RCL.Wrap("1", Color.Red))
-                .Replace("2", RCL.Wrap("2", Color.Red))
-                .Replace("3", RCL.Wrap("3", Color.Red))
-                .Replace("4", RCL.Wrap("4", Color.Red))
-                .Replace("5", RCL.Wrap("5", Color.Red))
-
-                .Replace("SuperChanger", RCL.Wrap("SuperChanger", Color.Chartreuse))
-                .Replace("AxTools10", RCL.Wrap("AxTools10", Color.Chartreuse))
-
+                    .Map(new[] {"0", "1", "2", "3", "4", "5"}, Color.Red)
+                    .Map(new[] { "SuperChanger", "AxTools" }, Color.Chartreuse)
+                    .Map(new[] { "Map", "xEditor", "xCode", "xComment", "Viem" }, Color.DeepPink)
+                    .Map(new[] { "Business", "Individual", "Pro" }, Color.LightCoral)
+                    .Map(new[] { "+", "-", "|", "\\" }, Color.Gray)
                 ;
 
             Screen.WriteLine(tr);
-
+            TypeProduct Type = TypeProduct.AxTools;
 
             TR_0:
-            Screen.Write("Введите тип продукта :>");
+            Screen.Write($"[{RCL.Wrap("KeyGen", Color.DarkOrchid)}] Введите тип продукта :>");
             int i;
             if (Int32.TryParse(Console.ReadLine(), out i))
             {
-                if (!(i >= 0 && i <= 2))
+                if (!(i >= 0 && i <= 5))
                 {
-                    Screen.WriteLine("Ошибка! Тип продукта не верен!");
+                    Screen.WriteLine($"[{RCL.Wrap("KeyGen", Color.DarkOrchid)}] Тип продукта не верен!");
                     goto TR_0;
                 }
             }
             else
             {
-                Screen.WriteLine("Ошибка! Тип продукта не является числом!");
+                Screen.WriteLine($"[{RCL.Wrap("KeyGen", Color.DarkOrchid)}] Тип продукта не является числом!");
                 goto TR_0;
             }
             //
@@ -115,80 +95,95 @@ namespace KeyGen
             ProfileLicense ad = new ProfileLicense();
             ad.ID = $"AxTools License ID Code";
 
-            TR_1:
-            Screen.Write("Введите своё имя :>");
-            string name = Console.ReadLine();
-            if (name.Length > 20)
-            {
-                Screen.WriteLine("Имя слишком длинное!");
-                goto TR_1;
-            }
-            Screen.Write("Введите свою фамилию :>");
-            string family = Console.ReadLine();
-            if (family.Length > 20)
-            {
-                Screen.WriteLine("Фамилия слишком длинная!");
-                goto TR_1;
-            }
-            ad.LName = $"{name} {family}{new string('~', 50 - (name.Length + family.Length + 1))}";
-            int iss = ad.LName.Length;
-            byte[] MainBox = null;
-            byte[] rgbKey = null;
-            byte[] EncryptArray = null;
-            byte[] rbgIV = coding.GetBytes("favoriteshistory");
-            string header = "";
+
             switch (TypeLic)
             {
                 case 0:
-                    header = "#$a";
-                    MainBox = coding.GetBytes($"{header}{ad.LName}{ad.ID}{"0001"}{"201220"}");
-                    rgbKey = coding.GetBytes("vs10xcodemapexts");
-                    break;
                 case 1:
-                    header = "#$b";
-                    MainBox = coding.GetBytes($"{header}{ad.LName}{ad.ID}{"0001"}{"201220"}");
-                    rgbKey = coding.GetBytes("vs10xeditorviewe");
-                    break;
+                case 2: Type = TypeProduct.AxTools; break;
+                case 3:
+                case 4:
+                case 5: Type = TypeProduct.SuperChanger; break;
+            }
+
+            Screen.Title = "KeyGen " + Type;
+
+
+            TR_1:
+            Screen.Write($"[{RCL.Wrap("KeyGen", Color.DarkOrchid)}] Введите своё имя :>");
+            string name = Console.ReadLine();
+            if (name.Length > 20)
+            {
+                Screen.WriteLine($"[{RCL.Wrap("KeyGen", Color.DarkOrchid)}] Имя слишком длинное!");
+                goto TR_1;
+            }
+            Screen.Write($"[{RCL.Wrap("KeyGen", Color.DarkOrchid)}] Введите свою фамилию :>");
+            string family = Console.ReadLine();
+            if (family.Length > 20)
+            {
+                Screen.WriteLine($"[{RCL.Wrap("KeyGen", Color.DarkOrchid)}] Фамилия слишком длинная!");
+                goto TR_1;
+            }
+            if (Type == TypeProduct.AxTools)
+                ad.LName = $"{name} {family}{new string('~', 50 - (name.Length + family.Length + 1))}";
+            else
+            {
+                ad.LName = $"{name} {family}";
+                ad.EDate = DateTime.Now.AddYears(50);
+            }
+
+
+            string key = "";
+
+            
+
+            switch (TypeLic)
+            {
+                case 0:
+                case 1:
                 case 2:
-                    header = "#$c";
-                    MainBox = coding.GetBytes($"{header}{ad.LName}{ad.ID}{"0001"}{"201220"}");
-                    rgbKey = coding.GetBytes("vs10xcommentsext");
-                    break;
+                    key = LicenseDecryptor.Encrypt(TypeLic, ad); break;
+                case 3:
+                    key = LicenseDecryptor.EncryptNew(SuperChangeLicenseType.Business, ad); break;
+                case 4:
+                    key = LicenseDecryptor.EncryptNew(SuperChangeLicenseType.ProInv, ad); break;
+                case 5:
+                    key = LicenseDecryptor.EncryptNew(SuperChangeLicenseType.Inv, ad); break;
             }
-            RijndaelManaged rijManaged = new RijndaelManaged();
-            rijManaged.Mode = CipherMode.CBC;
-            rijManaged.Padding = PaddingMode.Zeros;
-            rijManaged.BlockSize = 128;
-            rijManaged.KeySize = 128;
-            ICryptoTransform CryTransform = rijManaged.CreateEncryptor(rgbKey, rbgIV);
-            using (MemoryStream mStream = new MemoryStream())
-            {
-                using (CryptoStream cryptoStream = new CryptoStream(mStream, CryTransform, CryptoStreamMode.Write))
-                {
-                    cryptoStream.Write(MainBox, 0, MainBox.GetLength(0));
-                    cryptoStream.FlushFinalBlock();
-                }
-                rijManaged.Clear();
-                EncryptArray = mStream.ToArray();
-            }
-
-            string key = $"{header}{Convert.ToBase64String(EncryptArray)}";
-
+            
             Clipboard.SetText(key);
-            Screen.WriteLine($"Ключ скопирован в буфер обмена.");
+            Screen.WriteLine($"[{RCL.Wrap("KeyGen", Color.DarkOrchid)}] Ключ скопирован в буфер обмена.");
 
-            ProfileLicense profile = new AlhoritmAxTools(TypeLic).StrToAd(key);
+            Screen.WriteLine("");
+            Screen.WriteLine("");
 
-            if (profile != null)
+            if (Type == TypeProduct.AxTools)
             {
-                Screen.WriteLine($"Верен ли ключ: {true}");
-                Screen.WriteLine($"Индификатор лицензии: {profile.ID}");
-                Screen.WriteLine($"Имя владельца лицензии: {profile.LName}");
-                Screen.WriteLine($"Кол-во: {profile.SCount}");
-                Screen.WriteLine($"Дата окончания лицензии: {profile.EDate}");
+                ProfileLicense profile = new AlhoritmAxTools(TypeLic).StrToAd(key);
+
+                if (profile != null)
+                {
+                    Screen.WriteLine($"[{RCL.Wrap("License", Color.Red)}] Верен ли ключ: {RCL.Wrap(true, Color.CadetBlue)}");
+                    Screen.WriteLine($"[{RCL.Wrap("License", Color.Red)}] Тип лицензии: {Type}");
+                    Screen.WriteLine($"[{RCL.Wrap("License", Color.Red)}] Индификатор лицензии: {profile.ID}");
+                    Screen.WriteLine($"[{RCL.Wrap("License", Color.Red)}] Имя владельца лицензии: {profile.LName}");
+
+                    Screen.WriteLine($"[{RCL.Wrap("License", Color.Red)}] Кол-во: {profile.SCount}");
+                    Screen.WriteLine($"[{RCL.Wrap("License", Color.Red)}] Дата окончания лицензии: {profile.EDate}");
+                }
+                else
+                    Screen.WriteLine($"Верен ли ключ: {RCL.Wrap(false, Color.CadetBlue)}");
             }
             else
-                Screen.WriteLine($"Верен ли ключ: {false}");
+            {
+                ProfileLicense profile = ad;
+                Screen.WriteLine($"[{RCL.Wrap("License", Color.Red)}] Верен ли ключ: {RCL.Wrap(true, Color.CadetBlue)}");
+                Screen.WriteLine($"[{RCL.Wrap("License", Color.Red)}] Тип лицензии: {Type}");
+                Screen.WriteLine($"[{RCL.Wrap("License", Color.Red)}] Индификатор лицензии: {profile.ID}");
+                Screen.WriteLine($"[{RCL.Wrap("License", Color.Red)}] Имя владельца лицензии: {profile.LName}");
+                Screen.WriteLine($"[{RCL.Wrap("License", Color.Red)}] Дата окончания лицензии: {profile.EDate}");
+            }
+                
             Console.ReadKey();
         }
     }
