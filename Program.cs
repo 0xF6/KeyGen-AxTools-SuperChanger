@@ -1,12 +1,16 @@
-﻿namespace KeyGen
+﻿using System.Drawing;
+using System.Windows.Forms;
+using KeyGenAxTools;
+using RC.Framework;
+using RCL = Rc.Framework.Screens.RCL;
+using Screen = Rc.Framework.Screens.Screen;
+
+namespace KeyGen
 {
-    using RC.Framework;
     using System;
     using System.IO;
     using System.Security.Cryptography;
     using System.Text;
-    using System.Windows.Forms;
-
 
     public class Program
     {
@@ -14,7 +18,22 @@
         static void Main(string[] args) { new Program().tMain(args); }
         public void tMain(string[] args)
         {
-            Terminal.Title = "KeyGen - AxTools 10";
+            string licse =
+                $"Yuuki{new string('~', 50 - ("Yuuki").Length)}Wesp{new string(' ', 23 - "Wesp".Length)}{2020}{20}{12}{12}000";
+            string value = "6k";
+            string value2 = "6p";
+            string value3 = "tt";
+            var ls = LicenseDecryptor.EncryptNew(SuperChangeLicenseType.Bisnes, 
+                new ProfileLicense() {EDate = DateTime.Now.AddYears(55), ID = "1", LName = "Yuuki Wesp", SCount = 3333});
+            // text.Length > 100 && (text.StartsWith(value) || text.StartsWith(value2) || text.StartsWith(value3))
+            // tt || 6k || 6p
+
+            string lic = $"tt{new string('0', 100)}";
+
+            string a = u000Eu2006u2008.u00023("d/59m2LflM3hLZkNi8N2LNvkqGcGLxjkNdLwAgpAD7aO6RnYf6Y1XGIM0Gdx5HT5V+me0vWec+y/34uE9ZRePw==");
+
+
+            Screen.Title = "KeyGen - AxTools 10";
             //# +-------------------------+-+
             //# | Версии продуктов - VS10  \|\
             //# +---------------------------+-+-+
@@ -25,30 +44,68 @@
             //# | xComment                  | 2 |
             //# +---------------------------+---+
             //@ vs10xcodemapexts, vs10xeditorviewe, vs10xcommentsext
-            Terminal.WriteLine($"+g2\0+-------------------------+-++g0\0", "+g3\0Info+g0\0");
-            Terminal.WriteLine($"+g2\0|+g0\0 Версия - +g3\0AxTools+g0\010{new string(' ', 7)}+g2\0\\|\\+g2\0", "+g3\0Info+g0\0");
-            Terminal.WriteLine($"+g2\0+---------------------------+-+-++g0\0", "+g3\0Info+g0\0");
-            Terminal.WriteLine($"+g2\0|+g0\0 +g4\0x+g3\0Code Map+g0\0{new string(' ', 17)}+g2\0|+g0\0 0 +g2\0|+g0\0", "+g3\0Info+g0\0");
-            Terminal.WriteLine($"+g2\0+---------------------------+---++g0\0", "+g3\0Info+g0\0");
-            Terminal.WriteLine($"+g2\0|+g0\0 +g4\0x+g3\0Editor Viem+g0\0{new string(' ', 14)}+g2\0|+g0\0 1 +g2\0|+g0\0", "+g3\0Info+g0\0");
-            Terminal.WriteLine($"+g2\0+---------------------------+---++g0\0", "+g3\0Info+g0\0");
-            Terminal.WriteLine($"+g2\0|+g0\0 +g4\0x+g3\0Comment+g0\0{new string(' ', 18)}+g2\0|+g0\0 2 +g2\0|+g0\0", "+g3\0Info+g0\0");
-            Terminal.WriteLine($"+g2\0+---------------------------+---++g0\0", "+g3\0Info+g0\0");
+            Screen.WriteLine($"{RCL.Wrap("+-------------------------+-++", Color.Bisque)}");
+            Screen.WriteLine($"| Версия - AxTools10{new string(' ', 7)}\\|\\");
+            Screen.WriteLine($"+---------------------------+-+-+");
+            Screen.WriteLine($"| xCode Map{new string(' ', 17)}| 0 |");
+            Screen.WriteLine($"+---------------------------+---+");
+            Screen.WriteLine($"| xEditor Viem{new string(' ', 14)}| 1 |");
+            Screen.WriteLine($"+---------------------------+---+");
+            Screen.WriteLine($"| xComment{new string(' ', 18)}| 2 |");
+            Screen.WriteLine($"{RCL.Wrap("+-------------------------+-++", Color.Bisque)}");
+
+
+            Screen.WriteLine($"{RCL.Wrap("+-------------------------+---+", Color.Bisque)}");
+
+            StringBuilder builder = new StringBuilder();
+
+            builder.AppendLine("+-------------------------+---+");
+            builder.AppendLine("| Версия - AxTools10      |---|");
+            builder.AppendLine("+-------------------------+---+");
+            builder.AppendLine("|-------------------------| 0 |");
+            builder.AppendLine("|-------------------------| 1 |");
+            builder.AppendLine("|-------------------------| 2 |");
+            builder.AppendLine("+-------------------------+---+");
+            builder.AppendLine("| Версия - SuperChanger   +---+");
+            builder.AppendLine("+-------------------------+---+");
+            builder.AppendLine("|-------------------------| 3 |");
+            builder.AppendLine("|-------------------------| 4 |");
+            builder.AppendLine("|-------------------------| 5 |");
+            builder.AppendLine("+-------------------------+---+");
+
+
+            string tr = builder.ToString();
+
+            tr = tr
+                .Replace("0", RCL.Wrap("0", Color.Red))
+                .Replace("1", RCL.Wrap("1", Color.Red))
+                .Replace("2", RCL.Wrap("2", Color.Red))
+                .Replace("3", RCL.Wrap("3", Color.Red))
+                .Replace("4", RCL.Wrap("4", Color.Red))
+                .Replace("5", RCL.Wrap("5", Color.Red))
+
+                .Replace("SuperChanger", RCL.Wrap("SuperChanger", Color.Chartreuse))
+                .Replace("AxTools10", RCL.Wrap("AxTools10", Color.Chartreuse))
+
+                ;
+
+            Screen.WriteLine(tr);
+
 
             TR_0:
-            Terminal.Write("Введите тип продукта :>", "+g5\0KeyGen+g0\0");
+            Screen.Write("Введите тип продукта :>");
             int i;
             if (Int32.TryParse(Console.ReadLine(), out i))
             {
                 if (!(i >= 0 && i <= 2))
                 {
-                    Terminal.WriteLine("Ошибка! Тип продукта не верен!", "+g5\0KeyGen+g0\0");
+                    Screen.WriteLine("Ошибка! Тип продукта не верен!");
                     goto TR_0;
                 }
             }
             else
             {
-                Terminal.WriteLine("Ошибка! Тип продукта не является числом!", "+g5\0KeyGen+g0\0");
+                Screen.WriteLine("Ошибка! Тип продукта не является числом!");
                 goto TR_0;
             }
             //
@@ -59,18 +116,18 @@
             ad.ID = $"AxTools License ID Code";
 
             TR_1:
-            Terminal.Write("Введите своё имя :>", "+g5\0KeyGen+g0\0");
+            Screen.Write("Введите своё имя :>");
             string name = Console.ReadLine();
             if (name.Length > 20)
             {
-                Terminal.WriteLine("Имя слишком длинное!", "+g5\0KeyGen+g0\0");
+                Screen.WriteLine("Имя слишком длинное!");
                 goto TR_1;
             }
-            Terminal.Write("Введите свою фамилию :>", "+g5\0KeyGen+g0\0");
+            Screen.Write("Введите свою фамилию :>");
             string family = Console.ReadLine();
             if (family.Length > 20)
             {
-                Terminal.WriteLine("Фамилия слишком длинная!", "+g5\0KeyGen+g0\0");
+                Screen.WriteLine("Фамилия слишком длинная!");
                 goto TR_1;
             }
             ad.LName = $"{name} {family}{new string('~', 50 - (name.Length + family.Length + 1))}";
@@ -118,21 +175,21 @@
             string key = $"{header}{Convert.ToBase64String(EncryptArray)}";
 
             Clipboard.SetText(key);
-            Terminal.WriteLine($"Ключ скопирован в буфер обмена.", "+g4\0Key+g0\0");
+            Screen.WriteLine($"Ключ скопирован в буфер обмена.");
 
             ProfileLicense profile = new AlhoritmAxTools(TypeLic).StrToAd(key);
 
             if (profile != null)
             {
-                Terminal.WriteLine($"Верен ли ключ: {true}", "+g4\0License+g0\0");
-                Terminal.WriteLine($"Индификатор лицензии: {profile.ID}", "+g4\0License+g0\0");
-                Terminal.WriteLine($"Имя владельца лицензии: {profile.LName}", "+g4\0License+g0\0");
-                Terminal.WriteLine($"Кол-во: {profile.SCount}", "+g4\0License+g0\0");
-                Terminal.WriteLine($"Дата окончания лицензии: {profile.EDate}", "+g4\0License+g0\0");
+                Screen.WriteLine($"Верен ли ключ: {true}");
+                Screen.WriteLine($"Индификатор лицензии: {profile.ID}");
+                Screen.WriteLine($"Имя владельца лицензии: {profile.LName}");
+                Screen.WriteLine($"Кол-во: {profile.SCount}");
+                Screen.WriteLine($"Дата окончания лицензии: {profile.EDate}");
             }
             else
-                Terminal.WriteLine($"Верен ли ключ: {false}", "+g4\0License+g0\0");
-            Terminal.Pause();
+                Screen.WriteLine($"Верен ли ключ: {false}");
+            Console.ReadKey();
         }
     }
 
