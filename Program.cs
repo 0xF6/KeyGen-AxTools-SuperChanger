@@ -25,6 +25,7 @@ namespace KeyGen
         static void Main(string[] args) { new Program().tMain(args); }
         public void tMain(string[] args)
         {
+            RCL.EnablingVirtualTerminalProcessing();
             Screen.Title = "KeyGen";
             //# +-------------------------+-+
             //# | Версии продуктов - VS10  \|\
@@ -143,17 +144,17 @@ namespace KeyGen
                 case 1:
                 case 2:
                     key = LicenseDecryptor.Encrypt(TypeLic, ad); break;
-                case 3:
+                case 5:
                     key = LicenseDecryptor.EncryptNew(SuperChangeLicenseType.Business, ad); break;
                 case 4:
                     key = LicenseDecryptor.EncryptNew(SuperChangeLicenseType.ProInv, ad); break;
-                case 5:
+                case 3:
                     key = LicenseDecryptor.EncryptNew(SuperChangeLicenseType.Inv, ad); break;
             }
             
             Clipboard.SetText(key);
             Screen.WriteLine($"[{RCL.Wrap("KeyGen", Color.DarkOrchid)}] Ключ скопирован в буфер обмена.");
-
+            var qqq = new Xu000FXu2005Xu2008().Xu0002(key);
             Screen.WriteLine("");
             Screen.WriteLine("");
 

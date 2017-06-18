@@ -34,8 +34,8 @@
                $"{ad.LName}{new string('~', 50 - ad.LName.Length)}SuperChanger{new string('~', 23 - "SuperChanger".Length)}" +
                $"{ad.SCount:0000}" +
                $"{ad.EDate.Year.ToString().Remove(0, 2)}" +
-               $"{ad.EDate.Month}" +
-               $"{ad.EDate.Day}";
+               $"{ad.EDate.Month:00}" +
+               $"{ad.EDate.Day:00}";
 
 
             switch (TypeLic)
