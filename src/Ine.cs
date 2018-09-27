@@ -12,17 +12,17 @@ namespace KeyGen
         {
             try
             {
-                u000Eu2006u2008.u0003 = new RijndaelManaged
+                u0003 = new RijndaelManaged
                 {
                     Mode = CipherMode.CBC,
                     Padding = PaddingMode.Zeros,
                     BlockSize = 128,
                     KeySize = 256
                 };
-                byte[] bytes = u000Eu2006u2008.u0002.GetBytes(u000Eu2006u2008.u0006);
-                byte[] bytes2 = u000Eu2006u2008.u0002.GetBytes(u000Eu2006u2008.u000E);
-                u000Eu2006u2008.u0008 = u000Eu2006u2008.u0003.CreateDecryptor(bytes2, bytes);
-                u000Eu2006u2008.u0005 = true;
+                var bytes = u0002.GetBytes(u0006);
+                var bytes2 = u0002.GetBytes(u000E);
+                u0008 = u0003.CreateDecryptor(bytes2, bytes);
+                u0005 = true;
             }
             catch (SystemException ex)
             {
@@ -32,19 +32,19 @@ namespace KeyGen
         // Token: 0x06000BEC RID: 3052 RVA: 0x000641C0 File Offset: 0x000623C0
         public static string u00023(string u0002)
         {
-            if (!u000Eu2006u2008.u0005)
+            if (!u0005)
             {
-                u000Eu2006u2008.u00023();
+                u00023();
             }
-            string result = string.Empty;
+            var result = string.Empty;
             try
             {
-                byte[] array = Convert.FromBase64String(u0002);
+                var array = Convert.FromBase64String(u0002);
                 byte[] array2 = null;
-                MemoryStream memoryStream = new MemoryStream();
+                var memoryStream = new MemoryStream();
                 try
                 {
-                    CryptoStream cryptoStream = new CryptoStream(memoryStream, u000Eu2006u2008.u0008, CryptoStreamMode.Write);
+                    var cryptoStream = new CryptoStream(memoryStream, u0008, CryptoStreamMode.Write);
                     try
                     {
                         cryptoStream.Write(array, 0, array.GetLength(0));
@@ -54,7 +54,7 @@ namespace KeyGen
                     {
                         ((IDisposable)cryptoStream).Dispose();
                     }
-                    u000Eu2006u2008.u0003.Clear();
+                    u0003.Clear();
                     array2 = memoryStream.ToArray();
                 }
                 finally

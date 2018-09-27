@@ -1,4 +1,5 @@
-﻿namespace KeyGenAxTools
+﻿// ReSharper disable StringLiteralAsInterpolationArgument
+namespace KeyGenAxTools
 {
     using System.Text;
     using System.IO;
@@ -24,13 +25,10 @@
             byte[] rgbKey = null;
             byte[] EncryptArray = null;
             byte[] rbgIV = null;
-            string header = "";
-            string header2 = "";
+            var header = "";
+            var header2 = "";
 
-            string value = "6k";
-            string value2 = "6p";
-            string value3 = "tt";
-            string lics2e =
+            var lics2e =
                $"{ad.LName}{new string('~', 50 - ad.LName.Length)}SuperChanger{new string('~', 23 - "SuperChanger".Length)}" +
                $"{ad.SCount:0000}" +
                $"{ad.EDate.Year.ToString().Remove(0, 2)}" +
@@ -62,17 +60,17 @@
             MainBox = coding.GetBytes(lics2e);
 
 
-            RijndaelManaged rijManaged = new RijndaelManaged
+            var rijManaged = new RijndaelManaged
             {
                 Mode = CipherMode.CBC,
                 Padding = PaddingMode.Zeros,
                 BlockSize = 128,
                 KeySize = 256
             };
-            ICryptoTransform CryTransform = rijManaged.CreateEncryptor(rgbKey, rbgIV);
-            using (MemoryStream mStream = new MemoryStream())
+            var CryTransform = rijManaged.CreateEncryptor(rgbKey, rbgIV);
+            using (var mStream = new MemoryStream())
             {
-                using (CryptoStream cryptoStream = new CryptoStream(mStream, CryTransform, CryptoStreamMode.Write))
+                using (var cryptoStream = new CryptoStream(mStream, CryTransform, CryptoStreamMode.Write))
                 {
                     cryptoStream.Write(MainBox, 0, MainBox.GetLength(0));
                     cryptoStream.FlushFinalBlock();
@@ -81,7 +79,7 @@
                 EncryptArray = mStream.ToArray();
             }
 
-            string key = $"{header}{header2}{Convert.ToBase64String(EncryptArray)}";
+            var key = $"{header}{header2}{Convert.ToBase64String(EncryptArray)}";
 
             return key;
         }
@@ -91,8 +89,8 @@
             byte[] MainBox = null;
             byte[] rgbKey = null;
             byte[] EncryptArray = null;
-            byte[] rbgIV = coding.GetBytes("favoriteshistory");
-            string header = "";
+            var rbgIV = coding.GetBytes("favoriteshistory");
+            var header = "";
             switch (TypeLic)
             {
                 case 0:
@@ -112,26 +110,27 @@
                     break;
             }
 
-            RijndaelManaged rijManaged = new RijndaelManaged
+            var rijManaged = new RijndaelManaged
             {
                 Mode = CipherMode.CBC,
                 Padding = PaddingMode.Zeros,
                 BlockSize = 128,
                 KeySize = 128
             };
-            ICryptoTransform CryTransform = rijManaged.CreateEncryptor(rgbKey, rbgIV);
-            using (MemoryStream mStream = new MemoryStream())
+            var CryTransform = rijManaged.CreateEncryptor(rgbKey, rbgIV);
+            using (var mStream = new MemoryStream())
             {
-                using (CryptoStream cryptoStream = new CryptoStream(mStream, CryTransform, CryptoStreamMode.Write))
+                using (var cryptoStream = new CryptoStream(mStream, CryTransform, CryptoStreamMode.Write))
                 {
-                    cryptoStream.Write(MainBox, 0, MainBox.GetLength(0));
+                    if (MainBox != null)
+                        cryptoStream.Write(MainBox, 0, MainBox.GetLength(0));
                     cryptoStream.FlushFinalBlock();
                 }
                 rijManaged.Clear();
                 EncryptArray = mStream.ToArray();
             }
 
-            string key = $"{header}{Convert.ToBase64String(EncryptArray)}";
+            var key = $"{header}{Convert.ToBase64String(EncryptArray)}";
 
             return key;
         }
